@@ -3,19 +3,42 @@
  * https://docs.expo.dev/guides/color-schemes/
  */
 
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTheme } from '@/constants/ThemeContext';
 
+/**
+ * Hook to get theme-aware colors
+ * @param props - Optional light and dark color overrides
+ * @param colorPath - Dot-notation path to color in theme (e.g., 'text.primary', 'button.primary.background')
+ * @returns The color value based on current theme
+ */
 export function useThemeColor(
   props: { light?: string; dark?: string },
-  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
-) {
-  const theme = useColorScheme() ?? 'light';
-  const colorFromProps = props[theme];
+  colorPath?: string
+): string {
+  const { theme, mode } = useTheme();
+  const colorFromProps = props[mode];
 
   if (colorFromProps) {
     return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
   }
+
+  // If colorPath is provided, traverse the theme object to get the color
+  if (colorPath) {
+    const pathParts = colorPath.split('.');
+    let value: any = theme.colors;
+
+    for (const part of pathParts) {
+      if (value && typeof value === 'object' && part in value) {
+        value = value[part];
+      } else {
+        // Fallback to primary text color if path not found
+        return theme.colors.text.primary;
+      }
+    }
+
+    return typeof value === 'string' ? value : theme.colors.text.primary;
+  }
+
+  // Default fallback
+  return theme.colors.text.primary;
 }

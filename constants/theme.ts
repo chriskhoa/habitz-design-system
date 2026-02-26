@@ -1,53 +1,237 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Theme Configuration
+ * Semantic theme with light and dark mode variants
  */
 
-import { Platform } from 'react-native';
+import { colors, spacing, typography, borderRadius, shadows, animation } from './tokens';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+export const lightTheme = {
+  colors: {
+    ...colors,
+    // Background colors
+    background: {
+      primary: '#FFFFFF',
+      secondary: '#F5F5F5',
+      tertiary: '#E5E5E5',
+      overlay: 'rgba(0, 0, 0, 0.5)',
+    },
+    // Text colors
+    text: {
+      primary: colors.text.primary,
+      secondary: '#525252',
+      tertiary: '#737373',
+      disabled: '#A3A3A3',
+      inverse: colors.text.inverse,
+    },
+    // Border colors
+    border: {
+      default: '#E5E5E5',
+      primary: colors.border.primary,
+      focus: colors.primary.focused,
+      disabled: '#D4D4D4',
+    },
+    // Button-specific colors
+    button: {
+      primary: {
+        background: colors.primary.base,
+        backgroundHover: colors.primary.hover,
+        backgroundFocused: colors.primary.focused,
+        backgroundPressed: colors.primary.pressed,
+        backgroundDisabled: colors.disabled.all,
+        text: colors.text.inverse,
+        textDisabled: '#737373',
+        border: colors.border.primary,
+        borderDisabled: '#D4D4D4',
+      },
+      secondary: {
+        background: colors.secondary.base,
+        backgroundHover: colors.secondary.hover,
+        backgroundFocused: colors.secondary.focused,
+        backgroundPressed: colors.secondary.pressed,
+        backgroundDisabled: '#F5F5F5',
+        text: colors.text.primary,
+        textDisabled: '#A3A3A3',
+        border: colors.border.primary,
+        borderDisabled: '#D4D4D4',
+      },
+      tertiary: {
+        background: 'transparent',
+        backgroundHover: '#F5F5F5',
+        backgroundPressed: '#E5E5E5',
+        backgroundDisabled: 'transparent',
+        text: colors.text.primary,
+        textDisabled: '#A3A3A3',
+        border: 'transparent',
+        borderDisabled: 'transparent',
+      },
+    },
   },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+  spacing,
+  typography,
+  borderRadius,
+  shadows,
+  animation,
+  // Component-specific tokens
+  components: {
+    button: {
+      minHeight: {
+        compact: 32,
+        small: 40,
+        medium: 48,
+        large: 56,
+      },
+      paddingHorizontal: {
+        compact: spacing[4],  // 12px
+        small: spacing[5],    // 16px
+        medium: spacing[7],   // 32px (from Figma)
+        large: spacing[8],    // 40px
+      },
+      paddingVertical: {
+        compact: spacing[2],  // 6px
+        small: spacing[3],    // 8px
+        medium: spacing[4],   // 12px (from Figma)
+        large: spacing[5],    // 16px
+      },
+      borderWidth: 2,  // 2px solid border from Figma
+      borderRadius: borderRadius.normal,  // 8px from Figma
+      shadow: shadows.elevation4,  // Hard shadow from Figma
+      fontSize: {
+        compact: typography.fontSize.sm,
+        small: typography.fontSize.base,
+        medium: typography.fontSize.md,   // 18px from Figma
+        large: typography.fontSize.lg,
+      },
+      fontWeight: typography.fontWeight.medium,  // 500 from Figma
+      lineHeight: {
+        compact: typography.lineHeight.tight,
+        small: typography.lineHeight.sm,
+        medium: typography.lineHeight.sm,  // 24px from Figma
+        large: typography.lineHeight.base,
+      },
+      iconSize: {
+        compact: 16,
+        small: 18,
+        medium: 20,
+        large: 24,
+      },
+      iconSpacing: spacing[3],  // 8px
+    },
+    input: {
+      minHeight: {
+        small: 40,
+        medium: 48,
+        large: 56,
+      },
+      paddingHorizontal: spacing[4],
+      paddingVertical: spacing[3],
+      borderWidth: 1,
+      borderRadius: borderRadius.normal,
+      fontSize: typography.fontSize.base,
+      fontWeight: typography.fontWeight.regular,
+    },
+    card: {
+      borderRadius: borderRadius.lg,
+      padding: spacing[4],
+      shadow: shadows.md,
+    },
   },
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+// Dark theme variant
+export const darkTheme: Theme = {
+  ...lightTheme,
+  colors: {
+    ...lightTheme.colors,
+    background: {
+      primary: '#151718',
+      secondary: '#262626',
+      tertiary: '#404040',
+      overlay: 'rgba(0, 0, 0, 0.7)',
+    },
+    text: {
+      primary: '#FFFFFF',
+      secondary: '#D4D4D4',
+      tertiary: '#A3A3A3',
+      disabled: '#737373',
+      inverse: '#000000',
+    },
+    border: {
+      default: '#404040',
+      primary: '#FFFFFF',
+      focus: colors.primary.hover,
+      disabled: '#525252',
+    },
+    button: {
+      primary: {
+        background: colors.primary.base,
+        backgroundHover: colors.primary.hover,
+        backgroundFocused: colors.primary.focused,
+        backgroundPressed: colors.primary.pressed,
+        backgroundDisabled: colors.disabled.all,
+        text: colors.text.inverse,
+        textDisabled: '#737373',
+        border: colors.primary.base,
+        borderDisabled: '#525252',
+      },
+      secondary: {
+        background: 'transparent',
+        backgroundHover: '#262626',
+        backgroundFocused: '#262626',
+        backgroundPressed: '#404040',
+        backgroundDisabled: 'transparent',
+        text: '#FFFFFF',
+        textDisabled: '#737373',
+        border: '#FFFFFF',
+        borderDisabled: '#525252',
+      },
+      tertiary: {
+        background: 'transparent',
+        backgroundHover: '#262626',
+        backgroundPressed: '#404040',
+        backgroundDisabled: 'transparent',
+        text: '#FFFFFF',
+        textDisabled: '#737373',
+        border: 'transparent',
+        borderDisabled: 'transparent',
+      },
+    },
   },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+};
+
+// Define flexible Theme type that allows different color values in light/dark modes
+type ButtonColorScheme = {
+  background: string;
+  backgroundHover: string;
+  backgroundFocused: string;
+  backgroundPressed: string;
+  backgroundDisabled: string;
+  text: string;
+  textDisabled: string;
+  border: string;
+  borderDisabled: string;
+};
+
+export type Theme = {
+  colors: {
+    primary: { base: string; hover: string; focused: string; pressed: string };
+    secondary: { base: string; hover: string; focused: string; pressed: string };
+    text: { primary: string; inverse: string; secondary: string; tertiary: string; disabled: string };
+    border: { primary: string; default: string; focus: string; disabled: string };
+    disabled: { all: string };
+    background: { primary: string; secondary: string; tertiary: string; overlay: string };
+    button: {
+      primary: ButtonColorScheme;
+      secondary: ButtonColorScheme;
+      tertiary: Omit<ButtonColorScheme, 'backgroundFocused'>;
+    };
+  };
+  spacing: typeof spacing;
+  typography: typeof typography;
+  borderRadius: typeof borderRadius;
+  shadows: typeof shadows;
+  animation: typeof animation;
+  components: typeof lightTheme.components;
+};
+
+export type ThemeColors = Theme['colors'];
+export type ThemeMode = 'light' | 'dark';
