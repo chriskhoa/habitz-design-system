@@ -1,21 +1,23 @@
-import { StyleSheet, ScrollView } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Button } from '@/components/ui/button';
-import { Text } from '@/components/ui/text';
-import { useTheme } from '@/constants/ThemeContext';
+import { ThemedView } from "@/components/themed-view";
+import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
+import { useTheme } from "@/constants/ThemeContext";
+import { ScrollView, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
   const { mode, toggleTheme } = useTheme();
 
   return (
     <ThemedView style={styles.container}>
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+      >
         <ThemedView style={styles.header}>
-          <ThemedText type="title">Button Showcase</ThemedText>
-          <ThemedText style={styles.modeText}>Current mode: {mode}</ThemedText>
+          <Text variant="title-3xlarge">Button Showcase</Text>
+          <Text variant="body-base" style={styles.modeText}>Current mode: {mode}</Text>
           <Button
-            label={`Switch to ${mode === 'light' ? 'dark' : 'light'} mode`}
+            label={`Switch to ${mode === "light" ? "dark" : "light"} mode`}
             variant="tertiary"
             onPress={toggleTheme}
           />
@@ -23,46 +25,73 @@ export default function HomeScreen() {
 
         {/* Primary Buttons */}
         <ThemedView style={styles.section}>
-          <ThemedText type="subtitle">Primary Buttons</ThemedText>
+          <Text variant="title-large">Primary Buttons</Text>
 
           <ThemedView style={styles.row}>
-            <Button label="Default" variant="primary" onPress={() => alert('Primary pressed')} />
+            <Button
+              label="Default"
+              variant="primary"
+              onPress={() => alert("Primary pressed")}
+            />
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <Button label="Disabled" variant="primary" disabled onPress={() => {}} />
+            <Button
+              label="Disabled"
+              variant="primary"
+              disabled
+              onPress={() => {}}
+            />
           </ThemedView>
         </ThemedView>
 
         {/* Secondary Buttons */}
         <ThemedView style={styles.section}>
-          <ThemedText type="subtitle">Secondary Buttons</ThemedText>
+          <Text variant="title-large">Secondary Buttons</Text>
 
           <ThemedView style={styles.row}>
-            <Button label="Default" variant="secondary" onPress={() => alert('Secondary pressed')} />
+            <Button
+              label="Default"
+              variant="secondary"
+              onPress={() => alert("Secondary pressed")}
+            />
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <Button label="Disabled" variant="secondary" disabled onPress={() => {}} />
+            <Button
+              label="Disabled"
+              variant="secondary"
+              disabled
+              onPress={() => {}}
+            />
           </ThemedView>
         </ThemedView>
 
         {/* Tertiary Buttons */}
         <ThemedView style={styles.section}>
-          <ThemedText type="subtitle">Tertiary Buttons</ThemedText>
+          <Text variant="title-large">Tertiary Buttons</Text>
 
           <ThemedView style={styles.row}>
-            <Button label="Default" variant="tertiary" onPress={() => alert('Tertiary pressed')} />
+            <Button
+              label="Default"
+              variant="tertiary"
+              onPress={() => alert("Tertiary pressed")}
+            />
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <Button label="Disabled" variant="tertiary" disabled onPress={() => {}} />
+            <Button
+              label="Disabled"
+              variant="tertiary"
+              disabled
+              onPress={() => {}}
+            />
           </ThemedView>
         </ThemedView>
 
         {/* Title Typography */}
         <ThemedView style={styles.section}>
-          <ThemedText type="subtitle">Title Typography</ThemedText>
+          <Text variant="title-large">Title Typography</Text>
 
           <ThemedView style={styles.row}>
             <Text variant="title-3xlarge">title 3xlarge</Text>
@@ -91,7 +120,7 @@ export default function HomeScreen() {
 
         {/* Body Typography */}
         <ThemedView style={styles.section}>
-          <ThemedText type="subtitle">Body Typography</ThemedText>
+          <Text variant="title-large">Body Typography</Text>
 
           <ThemedView style={styles.row}>
             <Text variant="body-large">body large</Text>

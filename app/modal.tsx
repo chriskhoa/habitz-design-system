@@ -1,14 +1,14 @@
 import { Link } from 'expo-router';
 import { StyleSheet } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 
 export default function ModalScreen() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Modal Example</ThemedText>
-      <ThemedText>This is a modal screen.</ThemedText>
+      <Text variant="title-3xlarge">Modal Example</Text>
+      <Text variant="body-base">This is a modal screen.</Text>
       <Link href="/" dismissTo asChild>
         <Button label="Go to home screen" variant="secondary" onPress={() => {}} />
       </Link>
