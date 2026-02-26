@@ -43,6 +43,7 @@ export const Button: React.FC<ButtonProps> = ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "flex-start", // Size to content, don't stretch to fill container
     paddingHorizontal,
     paddingVertical,
     borderRadius,
