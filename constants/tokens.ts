@@ -58,12 +58,12 @@ export const colors = {
 // Typography
 export const typography = {
   fontFamily: {
-    body: Platform.select({
-      ios: 'DM Sans',
-      android: 'DM Sans',
-      web: 'DM Sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      default: 'DM Sans',
-    }),
+    // Title font from Figma (Space Grotesk Bold)
+    title: 'Space Grotesk',
+    // Body font from Figma - Regular weight
+    body: 'DM Sans',
+    // Body font - Medium weight
+    bodyMedium: 'DM Sans Medium',
     // Fallback to system fonts
     system: Platform.select({
       ios: 'System',
@@ -73,15 +73,15 @@ export const typography = {
     }),
   },
   fontSize: {
-    xs: 12,
-    sm: 14,
-    base: 16,
-    md: 18,
-    lg: 20,
-    xl: 24,
-    '2xl': 28,
-    '3xl': 32,
-    '4xl': 36,
+    xs: 12,   // body/caption
+    sm: 16,   // body/base, title/base
+    base: 16, // alias for sm
+    md: 18,   // body/medium, title/medium
+    lg: 20,   // body/large
+    xl: 24,   // title/large
+    '2xl': 32, // title/xlarge
+    '3xl': 40, // title/2xlarge
+    '4xl': 48, // title/3xlarge
   },
   fontWeight: {
     light: '300' as const,
@@ -92,10 +92,14 @@ export const typography = {
     extrabold: '800' as const,
   },
   lineHeight: {
+    xs: 16,   // body/caption
     tight: 20,
-    sm: 24,
+    sm: 24,   // most body text, title medium/base
+    md: 32,   // title/large
     base: 28,
+    lg: 40,   // title/xlarge
     relaxed: 32,
+    xl: 48,   // title/3xlarge, 2xlarge
     loose: 36,
   },
   letterSpacing: {

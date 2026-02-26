@@ -2,6 +2,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 import { useTheme } from '@/constants/ThemeContext';
 
 export default function HomeScreen() {
@@ -56,6 +57,56 @@ export default function HomeScreen() {
 
           <ThemedView style={styles.row}>
             <Button label="Disabled" variant="tertiary" disabled onPress={() => {}} />
+          </ThemedView>
+        </ThemedView>
+
+        {/* Title Typography */}
+        <ThemedView style={styles.section}>
+          <ThemedText type="subtitle">Title Typography</ThemedText>
+
+          <ThemedView style={styles.row}>
+            <Text variant="title-3xlarge">title 3xlarge</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="title-2xlarge">title 2xlarge</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="title-xlarge">title xlarge</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="title-large">title large</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="title-medium">title medium</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="title-base">title base</Text>
+          </ThemedView>
+        </ThemedView>
+
+        {/* Body Typography */}
+        <ThemedView style={styles.section}>
+          <ThemedText type="subtitle">Body Typography</ThemedText>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-large">body large</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-medium">body medium</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-base">body base</Text>
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-caption">body caption</Text>
           </ThemedView>
         </ThemedView>
       </ScrollView>
