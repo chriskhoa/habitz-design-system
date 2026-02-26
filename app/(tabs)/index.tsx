@@ -1,11 +1,16 @@
 import { ThemedView } from "@/components/themed-view";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
+import { Input } from "@/components/ui/input";
 import { useTheme } from "@/constants/ThemeContext";
 import { ScrollView, StyleSheet } from "react-native";
+import { useState } from "react";
 
 export default function HomeScreen() {
   const { mode, toggleTheme } = useTheme();
+  const [searchValue, setSearchValue] = useState("");
+  const [textValue, setTextValue] = useState("");
+  const [textAreaValue, setTextAreaValue] = useState("");
 
   return (
     <ThemedView style={styles.container}>
@@ -14,8 +19,10 @@ export default function HomeScreen() {
         contentContainerStyle={styles.scrollContent}
       >
         <ThemedView style={styles.header}>
-          <Text variant="title-3xlarge">Button Showcase</Text>
-          <Text variant="body-base" style={styles.modeText}>Current mode: {mode}</Text>
+          <Text variant="title-3xlarge">UI Showcase</Text>
+          <Text variant="body-base" style={styles.modeText}>
+            Current mode: {mode}
+          </Text>
           <Button
             label={`Switch to ${mode === "light" ? "dark" : "light"} mode`}
             variant="tertiary"
@@ -89,6 +96,41 @@ export default function HomeScreen() {
           </ThemedView>
         </ThemedView>
 
+        {/* Input Fields */}
+        <ThemedView style={styles.section}>
+          <Text variant="title-large">Input Fields</Text>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-medium">Pill (search)</Text>
+            <Input
+              shape="pill"
+              placeholder="Search..."
+              value={searchValue}
+              onChangeText={setSearchValue}
+            />
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-medium">Single-line (text)</Text>
+            <Input
+              shape="single-line"
+              placeholder="Enter your name"
+              value={textValue}
+              onChangeText={setTextValue}
+            />
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-medium">Multi-line (textArea)</Text>
+            <Input
+              shape="multi-line"
+              placeholder="Enter your message..."
+              value={textAreaValue}
+              onChangeText={setTextAreaValue}
+            />
+          </ThemedView>
+        </ThemedView>
+
         {/* Title Typography */}
         <ThemedView style={styles.section}>
           <Text variant="title-large">Title Typography</Text>
@@ -146,6 +188,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 70,
   },
   scrollView: {
     flex: 1,
