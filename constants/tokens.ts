@@ -56,8 +56,10 @@ export const colors = {
 
   // Surface colors (for backgrounds)
   surface: {
-    brand: '#fff2f8',  // Light pink background
-    invert: '#000000', // Black background (inverted)
+    brand: '#fff2f8',       // Light pink background (idle state)
+    brandSecondary: '#fdcae4', // Medium pink (hover state)
+    brandContrast: '#f55daf',  // Bright pink (pressed state)
+    invert: '#000000',      // Black background (inverted)
   },
 } as const;
 

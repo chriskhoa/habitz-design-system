@@ -150,6 +150,12 @@ export const darkTheme: Theme = {
       tertiary: '#404040',
       overlay: 'rgba(0, 0, 0, 0.7)',
     },
+    surface: {
+      brand: '#3d1a2e',       // Dark pink/purple for dark mode (idle state)
+      brandSecondary: '#5a2847', // Medium dark pink (hover state)
+      brandContrast: '#7d3a66',  // Lighter purple-pink (pressed state)
+      invert: '#FFFFFF',      // White background (inverted) for dark mode
+    },
     text: {
       primary: '#FFFFFF',
       secondary: '#D4D4D4',
@@ -221,7 +227,7 @@ export type Theme = {
     border: { primary: string; default: string; focus: string; disabled: string };
     disabled: { all: string };
     background: { primary: string; secondary: string; tertiary: string; overlay: string };
-    surface: { brand: string; invert: string };
+    surface: { brand: string; brandSecondary: string; brandContrast: string; invert: string };
     button: {
       primary: ButtonColorScheme;
       secondary: ButtonColorScheme;

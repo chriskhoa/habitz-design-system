@@ -141,6 +141,7 @@ export default function HomeScreen() {
               icon="clock-o"
               title="time"
               description="At a specific time every day, week, or month."
+              onPress={() => alert("Time card pressed")}
             />
           </ThemedView>
 
@@ -149,6 +150,7 @@ export default function HomeScreen() {
               icon="calendar"
               title="date"
               description="On a specific date or recurring date."
+              onPress={() => alert("Date card pressed")}
             />
           </ThemedView>
 
@@ -157,6 +159,7 @@ export default function HomeScreen() {
               icon="check-circle"
               title="completion"
               description="When you complete another habit."
+              onPress={() => alert("Completion card pressed")}
             />
           </ThemedView>
         </ThemedView>
