@@ -151,10 +151,10 @@ export const darkTheme: Theme = {
       overlay: 'rgba(0, 0, 0, 0.7)',
     },
     surface: {
-      brand: '#3d1a2e',       // Dark pink/purple for dark mode (idle state)
-      brandSecondary: '#5a2847', // Medium dark pink (hover state)
-      brandContrast: '#7d3a66',  // Lighter purple-pink (pressed state)
-      invert: '#FFFFFF',      // White background (inverted) for dark mode
+      brand: '#db049a',       // Bright magenta from Figma (idle state)
+      brandSecondary: '#e55db8', // Lighter magenta (hover state - derived)
+      brandContrast: '#b8037d',  // Darker magenta (pressed state - derived)
+      invert: '#FFFFFF',      // White background from Figma
     },
     text: {
       primary: '#FFFFFF',
@@ -165,20 +165,20 @@ export const darkTheme: Theme = {
     },
     border: {
       default: '#404040',
-      primary: '#FFFFFF',
+      primary: '#a700a3',     // Purple border from Figma dark mode
       focus: colors.primary.hover,
       disabled: '#525252',
     },
     button: {
       primary: {
-        background: colors.primary.base,
-        backgroundHover: colors.primary.hover,
-        backgroundFocused: colors.primary.focused,
-        backgroundPressed: colors.primary.pressed,
+        background: '#a700a3',      // Purple from Figma dark mode
+        backgroundHover: '#c400bf',  // Lighter purple (hover - derived)
+        backgroundFocused: '#c400bf', // Lighter purple (focused - derived)
+        backgroundPressed: '#EB279D', // Bright pink from Figma dark mode
         backgroundDisabled: colors.disabled.all,
-        text: colors.text.inverse,
+        text: '#FFFFFF',            // White text from Figma
         textDisabled: '#737373',
-        border: colors.primary.base,
+        border: '#a700a3',          // Purple border from Figma
         borderDisabled: '#525252',
       },
       secondary: {
@@ -189,7 +189,7 @@ export const darkTheme: Theme = {
         backgroundDisabled: 'transparent',
         text: '#FFFFFF',
         textDisabled: '#737373',
-        border: '#FFFFFF',
+        border: '#a700a3',          // Purple border from Figma dark mode
         borderDisabled: '#525252',
       },
       tertiary: {

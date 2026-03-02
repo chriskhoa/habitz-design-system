@@ -1,8 +1,8 @@
 import { ThemedView } from "@/components/themed-view";
+import { ActionCard } from "@/components/ui/action-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
-import { ActionCard } from "@/components/ui/action-card";
 import { useTheme } from "@/constants/ThemeContext";
 import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
@@ -37,7 +37,7 @@ export default function HomeScreen() {
 
           <ThemedView style={styles.row}>
             <Button
-              label="Default"
+              label="Button"
               variant="primary"
               onPress={() => alert("Primary pressed")}
             />
@@ -59,7 +59,7 @@ export default function HomeScreen() {
 
           <ThemedView style={styles.row}>
             <Button
-              label="Default"
+              label="Button"
               variant="secondary"
               onPress={() => alert("Secondary pressed")}
             />
@@ -81,7 +81,7 @@ export default function HomeScreen() {
 
           <ThemedView style={styles.row}>
             <Button
-              label="Default"
+              label="Button"
               variant="tertiary"
               onPress={() => alert("Tertiary pressed")}
             />
