@@ -53,6 +53,12 @@ export const colors = {
   disabled: {
     all: '#323241',
   },
+
+  // Surface colors (for backgrounds)
+  surface: {
+    brand: '#fff2f8',  // Light pink background
+    invert: '#000000', // Black background (inverted)
+  },
 } as const;
 
 // Typography

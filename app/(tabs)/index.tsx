@@ -1,10 +1,11 @@
 import { ThemedView } from "@/components/themed-view";
 import { Button } from "@/components/ui/button";
-import { Text } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
+import { Text } from "@/components/ui/text";
+import { ActionCard } from "@/components/ui/action-card";
 import { useTheme } from "@/constants/ThemeContext";
-import { ScrollView, StyleSheet } from "react-native";
 import { useState } from "react";
+import { ScrollView, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
   const { mode, toggleTheme } = useTheme();
@@ -101,7 +102,7 @@ export default function HomeScreen() {
           <Text variant="title-large">Input Fields</Text>
 
           <ThemedView style={styles.row}>
-            <Text variant="body-medium">Pill (search)</Text>
+            <Text variant="body-medium">Pill</Text>
             <Input
               shape="pill"
               placeholder="Search..."
@@ -111,7 +112,7 @@ export default function HomeScreen() {
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <Text variant="body-medium">Single-line (text)</Text>
+            <Text variant="body-medium">Single-line</Text>
             <Input
               shape="single-line"
               placeholder="Enter your name"
@@ -121,12 +122,41 @@ export default function HomeScreen() {
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <Text variant="body-medium">Multi-line (textArea)</Text>
+            <Text variant="body-medium">Multi-line</Text>
             <Input
               shape="multi-line"
               placeholder="Enter your message..."
               value={textAreaValue}
               onChangeText={setTextAreaValue}
+            />
+          </ThemedView>
+        </ThemedView>
+
+        {/* Action Cards */}
+        <ThemedView style={styles.section}>
+          <Text variant="title-large">Action Cards</Text>
+
+          <ThemedView style={styles.row}>
+            <ActionCard
+              icon="clock-o"
+              title="time"
+              description="At a specific time every day, week, or month."
+            />
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <ActionCard
+              icon="calendar"
+              title="date"
+              description="On a specific date or recurring date."
+            />
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <ActionCard
+              icon="check-circle"
+              title="completion"
+              description="When you complete another habit."
             />
           </ThemedView>
         </ThemedView>

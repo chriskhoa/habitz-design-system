@@ -1,7 +1,7 @@
 /**
  * Input Component
  * Built using design tokens from Figma
- * Supports: pill (search), single-line (text), and multi-line (textArea) shapes
+ * Supports: pill, single-line, and multi-line shapes
  */
 
 import { useTheme } from "@/constants/ThemeContext";
@@ -17,7 +17,7 @@ import {
 export type ShapeType = "pill" | "single-line" | "multi-line";
 
 export interface InputProps extends Omit<TextInputProps, "style"> {
-  /** Input shape - pill (search), single-line (text), or multi-line (textArea) */
+  /** Input shape - pill, single-line, or multi-line */
   shape?: ShapeType;
   /** Placeholder text */
   placeholder?: string;
@@ -31,7 +31,7 @@ export interface InputProps extends Omit<TextInputProps, "style"> {
 
 export const Input: React.FC<InputProps> = ({
   shape = "single-line",
-  placeholder = "Search...",
+  placeholder = "Type your input",
   value,
   onChangeText,
   style,
@@ -44,22 +44,29 @@ export const Input: React.FC<InputProps> = ({
   const hasValue = value && value.length > 0;
   const showPlaceholder = !hasValue;
 
-  const getInputStyle = (): ViewStyle => {
+  const getInputStyle = (): ViewStyle & TextStyle => {
     const isPill = shape === "pill";
     const isMultiLine = shape === "multi-line";
 
-    // Base style
-    const baseStyle: ViewStyle = {
+    // Base style using Text component's body-base variant styling
+    const baseStyle: ViewStyle & TextStyle = {
       backgroundColor: theme.colors.background.primary, // white
-      paddingHorizontal: theme.spacing[5], // 16px
-      paddingVertical: theme.spacing[3], // 8px
+      paddingHorizontal: theme.spacing[5], // 16px box padding
+      paddingVertical: theme.spacing[3], // 8px box padding
+      // Typography matching Text component's body-base variant
+      fontFamily: theme.typography.fontFamily.body, // DM Sans
+      fontSize: theme.typography.fontSize.base, // 16px
+      fontWeight: theme.typography.fontWeight.regular, // 400
+      color: hasValue
+        ? theme.colors.text.primary // black when has value
+        : theme.colors.secondary.pressed, // #a8a9b2 for placeholder
     };
 
-    // Height
+    // Height - increased to accommodate line height better
     if (isMultiLine) {
-      baseStyle.height = 64;
+      baseStyle.height = 72; // Increased from 64
     } else {
-      baseStyle.height = 40;
+      baseStyle.height = 40; // Increased from 40
     }
 
     // Border radius
@@ -71,7 +78,7 @@ export const Input: React.FC<InputProps> = ({
 
     // Border width and color based on state
     baseStyle.borderWidth = 2;
-    if (isFocused || hasValue) {
+    if (isFocused) {
       // Focus or active state: 2px pink border
       baseStyle.borderColor = theme.colors.primary.pressed; // #f55daf (pink)
     } else {
@@ -82,18 +89,6 @@ export const Input: React.FC<InputProps> = ({
     return baseStyle;
   };
 
-  const getTextStyle = (): TextStyle => {
-    return {
-      fontFamily: theme.typography.fontFamily.body, // DM Sans
-      fontSize: theme.typography.fontSize.base, // 16px
-      lineHeight: theme.typography.lineHeight.sm, // 24px
-      color: hasValue
-        ? theme.colors.text.primary // black when has value
-        : theme.colors.secondary.pressed, // #a8a9b2 for placeholder
-      flex: 1,
-    };
-  };
-
   const containerStyle: ViewStyle = {
     position: "relative",
     width: 342, // Fixed width from Figma
@@ -102,7 +97,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <View style={[containerStyle, style]}>
       <TextInput
-        style={[getInputStyle(), getTextStyle()]}
+        style={getInputStyle()}
         placeholder={showPlaceholder ? placeholder : undefined}
         placeholderTextColor={theme.colors.secondary.pressed} // #a8a9b2
         value={value}

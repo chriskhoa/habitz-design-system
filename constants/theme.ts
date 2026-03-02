@@ -15,6 +15,8 @@ export const lightTheme = {
       tertiary: '#E5E5E5',
       overlay: 'rgba(0, 0, 0, 0.5)',
     },
+    // Surface colors (from tokens)
+    surface: colors.surface,
     // Text colors
     text: {
       primary: colors.text.primary,
@@ -219,6 +221,7 @@ export type Theme = {
     border: { primary: string; default: string; focus: string; disabled: string };
     disabled: { all: string };
     background: { primary: string; secondary: string; tertiary: string; overlay: string };
+    surface: { brand: string; invert: string };
     button: {
       primary: ButtonColorScheme;
       secondary: ButtonColorScheme;
