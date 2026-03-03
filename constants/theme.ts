@@ -178,7 +178,7 @@ export const darkTheme: Theme = {
         backgroundDisabled: colors.disabled.all,
         text: '#FFFFFF',            // White text from Figma
         textDisabled: '#737373',
-        border: '#a700a3',          // Purple border from Figma
+        border: '#000000',          // Black border for visibility
         borderDisabled: '#525252',
       },
       secondary: {

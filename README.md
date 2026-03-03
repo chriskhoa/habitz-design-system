@@ -154,7 +154,7 @@ const [isFocused, setIsFocused] = useState(false);
 - Web/desktop platforms with hover support
 
 ```tsx
-// ✅ ActionCard example - hover + focus
+// ✅ Card example - hover + focus
 const [isHovered, setIsHovered] = useState(false);
 const [isFocused, setIsFocused] = useState(false);
 
@@ -267,7 +267,7 @@ For inputs:
 3. Use existing components as reference:
    - `button.tsx` - Simple stateless component
    - `input.tsx` - Form control with focus state
-   - `action-card.tsx` - Complex component with hover/focus
+   - `card.tsx` - Complex component with hover/focus
 4. Always export props interface
 5. Always use theme tokens via `useTheme()`
 6. Include JSDoc comments for all props

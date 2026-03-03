@@ -1,5 +1,5 @@
 /**
- * Action Card Component
+ * Card Component
  * A flexible card component with optional helper subcomponents
  * Built from Figma design system
  */
@@ -10,7 +10,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useTheme } from "@/constants/ThemeContext";
 import { Text } from "./text";
 
-export interface ActionCardProps {
+export interface CardProps {
   /** Card content - can be any React components */
   children: ReactNode;
   /** Optional press handler - if not provided, card will not be pressable */
@@ -21,14 +21,14 @@ export interface ActionCardProps {
   accessibilityLabel?: string;
 }
 
-export interface ActionCardIconContainerProps {
+export interface CardIconContainerProps {
   /** Icon container content */
   children: ReactNode;
   /** Optional custom style */
   style?: ViewStyle;
 }
 
-export interface ActionCardIconProps {
+export interface CardIconProps {
   /** Icon name from FontAwesome */
   name: keyof typeof FontAwesome.glyphMap;
   /** Optional icon size */
@@ -37,28 +37,28 @@ export interface ActionCardIconProps {
   color?: string;
 }
 
-export interface ActionCardContentProps {
+export interface CardContentProps {
   /** Content area for title and description */
   children: ReactNode;
   /** Optional custom style */
   style?: ViewStyle;
 }
 
-export interface ActionCardTitleProps {
+export interface CardTitleProps {
   /** Title text */
   children: ReactNode;
   /** Optional custom style */
   style?: TextStyle;
 }
 
-export interface ActionCardDescriptionProps {
+export interface CardDescriptionProps {
   /** Description text */
   children: ReactNode;
   /** Optional custom style */
   style?: TextStyle;
 }
 
-const ActionCardRoot: React.FC<ActionCardProps> = ({
+const CardRoot: React.FC<CardProps> = ({
   children,
   onPress,
   style,
@@ -123,7 +123,7 @@ const ActionCardRoot: React.FC<ActionCardProps> = ({
   );
 };
 
-const ActionCardIconContainer: React.FC<ActionCardIconContainerProps> = ({
+const CardIconContainer: React.FC<CardIconContainerProps> = ({
   children,
   style,
 }) => {
@@ -141,7 +141,7 @@ const ActionCardIconContainer: React.FC<ActionCardIconContainerProps> = ({
   return <View style={[iconContainerStyle, style]}>{children}</View>;
 };
 
-const ActionCardIcon: React.FC<ActionCardIconProps> = ({
+const CardIcon: React.FC<CardIconProps> = ({
   name,
   size = 24,
   color,
@@ -152,7 +152,7 @@ const ActionCardIcon: React.FC<ActionCardIconProps> = ({
   return <FontAwesome name={name} size={size} color={iconColor} />;
 };
 
-const ActionCardContent: React.FC<ActionCardContentProps> = ({
+const CardContent: React.FC<CardContentProps> = ({
   children,
   style,
 }) => {
@@ -163,7 +163,7 @@ const ActionCardContent: React.FC<ActionCardContentProps> = ({
   return <View style={[contentStyle, style]}>{children}</View>;
 };
 
-const ActionCardTitle: React.FC<ActionCardTitleProps> = ({
+const CardTitle: React.FC<CardTitleProps> = ({
   children,
   style,
 }) => {
@@ -174,7 +174,7 @@ const ActionCardTitle: React.FC<ActionCardTitleProps> = ({
   );
 };
 
-const ActionCardDescription: React.FC<ActionCardDescriptionProps> = ({
+const CardDescription: React.FC<CardDescriptionProps> = ({
   children,
   style,
 }) => {
@@ -185,10 +185,10 @@ const ActionCardDescription: React.FC<ActionCardDescriptionProps> = ({
   );
 };
 
-export const ActionCard = Object.assign(ActionCardRoot, {
-  IconContainer: ActionCardIconContainer,
-  Icon: ActionCardIcon,
-  Content: ActionCardContent,
-  Title: ActionCardTitle,
-  Description: ActionCardDescription,
+export const Card = Object.assign(CardRoot, {
+  IconContainer: CardIconContainer,
+  Icon: CardIcon,
+  Content: CardContent,
+  Title: CardTitle,
+  Description: CardDescription,
 });

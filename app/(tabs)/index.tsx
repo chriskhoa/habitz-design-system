@@ -1,5 +1,5 @@
 import { ThemedView } from "@/components/themed-view";
-import { ActionCard } from "@/components/ui/action-card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
@@ -135,48 +135,48 @@ export default function HomeScreen() {
           </ThemedView>
         </ThemedView>
 
-        {/* Action Cards */}
+        {/* Cards */}
         <ThemedView style={styles.section}>
-          <Text variant="title-large">Action Cards</Text>
+          <Text variant="title-large">Cards</Text>
 
           <ThemedView style={styles.row}>
-            <ActionCard
+            <Card
               onPress={() => alert("Time card pressed")}
               accessibilityLabel="time"
             >
-              <ActionCard.IconContainer>
-                <ActionCard.Icon name="clock-o" />
-              </ActionCard.IconContainer>
-              <ActionCard.Content>
-                <ActionCard.Title>time</ActionCard.Title>
-                <ActionCard.Description>
+              <Card.IconContainer>
+                <Card.Icon name="clock-o" />
+              </Card.IconContainer>
+              <Card.Content>
+                <Card.Title>time</Card.Title>
+                <Card.Description>
                   At a specific time every day, week, or month.
-                </ActionCard.Description>
-              </ActionCard.Content>
-            </ActionCard>
+                </Card.Description>
+              </Card.Content>
+            </Card>
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <ActionCard
+            <Card
               onPress={() => alert("Date card pressed")}
               accessibilityLabel="date"
             >
               <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
-                <ActionCard.IconContainer>
-                  <ActionCard.Icon name="calendar" />
-                </ActionCard.IconContainer>
-                <ActionCard.Content>
-                  <ActionCard.Title>date</ActionCard.Title>
-                  <ActionCard.Description>
+                <Card.IconContainer>
+                  <Card.Icon name="calendar" />
+                </Card.IconContainer>
+                <Card.Content>
+                  <Card.Title>date</Card.Title>
+                  <Card.Description>
                     On a specific date or recurring date.
-                  </ActionCard.Description>
-                </ActionCard.Content>
+                  </Card.Description>
+                </Card.Content>
               </View>
-            </ActionCard>
+            </Card>
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <ActionCard accessibilityLabel="Quick action">
+            <Card accessibilityLabel="Quick action">
               <View style={{ gap: 12 }}>
                 <Text variant="title-medium">Quick Action</Text>
                 <Text variant="body-base">
@@ -201,7 +201,7 @@ export default function HomeScreen() {
                   }}
                 />
               </View>
-            </ActionCard>
+            </Card>
           </ThemedView>
         </ThemedView>
 
