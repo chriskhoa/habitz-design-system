@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
+import { Dialog } from "@/components/ui/dialog";
 import { useTheme } from "@/constants/ThemeContext";
 import { useState } from "react";
 import { ScrollView, StyleSheet, View, Keyboard } from "react-native";
@@ -13,6 +14,8 @@ export default function HomeScreen() {
   const [textValue, setTextValue] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
   const [customCardValue, setCustomCardValue] = useState("");
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [contentDialogOpen, setContentDialogOpen] = useState(false);
 
   return (
     <ThemedView style={styles.container}>
@@ -205,6 +208,29 @@ export default function HomeScreen() {
           </ThemedView>
         </ThemedView>
 
+        {/* Dialogs */}
+        <ThemedView style={styles.section}>
+          <Text variant="title-large">Dialogs</Text>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-medium">Confirmation</Text>
+            <Button
+              label="Open Confirm Dialog"
+              variant="primary"
+              onPress={() => setConfirmDialogOpen(true)}
+            />
+          </ThemedView>
+
+          <ThemedView style={styles.row}>
+            <Text variant="body-medium">With Content</Text>
+            <Button
+              label="Open Content Dialog"
+              variant="secondary"
+              onPress={() => setContentDialogOpen(true)}
+            />
+          </ThemedView>
+        </ThemedView>
+
         {/* Title Typography */}
         <ThemedView style={styles.section}>
           <Text variant="title-large">Title Typography</Text>
@@ -255,6 +281,81 @@ export default function HomeScreen() {
           </ThemedView>
         </ThemedView>
       </ScrollView>
+
+      {/* Dialog Components */}
+      <Dialog
+        open={confirmDialogOpen}
+        onClose={() => setConfirmDialogOpen(false)}
+      >
+        <Dialog.Header>
+          <Dialog.Title>Delete account?</Dialog.Title>
+          <Dialog.CloseButton onPress={() => setConfirmDialogOpen(false)} />
+        </Dialog.Header>
+
+        <Dialog.Body>
+          <Dialog.Description>
+            This action cannot be undone. All your data will be permanently
+            deleted from our servers.
+          </Dialog.Description>
+        </Dialog.Body>
+
+        <Dialog.Footer>
+          <Button
+            label="Cancel"
+            variant="secondary"
+            onPress={() => setConfirmDialogOpen(false)}
+          />
+          <Button
+            label="Delete"
+            variant="primary"
+            onPress={() => {
+              alert("Account deleted!");
+              setConfirmDialogOpen(false);
+            }}
+          />
+        </Dialog.Footer>
+      </Dialog>
+
+      <Dialog
+        open={contentDialogOpen}
+        onClose={() => setContentDialogOpen(false)}
+      >
+        <Dialog.Header>
+          <Dialog.Title>Terms and Conditions</Dialog.Title>
+          <Dialog.CloseButton onPress={() => setContentDialogOpen(false)} />
+        </Dialog.Header>
+
+        <Dialog.Body>
+          <Text variant="body-base">
+            Welcome to our application! Before you continue, please read and
+            accept our terms and conditions.
+          </Text>
+          <Text variant="body-base">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Text>
+          <Text variant="body-base">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur.
+          </Text>
+        </Dialog.Body>
+
+        <Dialog.Footer>
+          <Button
+            label="Decline"
+            variant="secondary"
+            onPress={() => setContentDialogOpen(false)}
+          />
+          <Button
+            label="Accept"
+            variant="primary"
+            onPress={() => {
+              alert("Terms accepted!");
+              setContentDialogOpen(false);
+            }}
+          />
+        </Dialog.Footer>
+      </Dialog>
     </ThemedView>
   );
 }
