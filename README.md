@@ -1,6 +1,6 @@
 # Habitz Design System - Component Template
 
-A React Native UI component library built with Expo, designed to create reusable components with integrated design tokens and theming based on Figma designs.
+A React Native UI component library built with Expo, designed to create reusable components with integrated design tokens and theming based on [Figma Habitz Design System](https://www.figma.com/files/team/1598368160300532551/resources/community/file/1298672675597243186).
 
 **Tech Stack:** Expo React Native, Expo Router, TypeScript
 
@@ -88,6 +88,7 @@ export const ComponentName: React.FC<ComponentNameProps> = ({
 #### 1. **Style Functions vs Constants**
 
 **Use style functions** when styles depend on:
+
 - Component state (pressed, focused, hovered)
 - Props (variant, disabled)
 - Conditional logic
@@ -102,6 +103,7 @@ const getButtonStyle = (pressed: boolean): ViewStyle => ({
 ```
 
 **Use style constants** when:
+
 - Styles are static and don't change
 - Extracting repeated values for reusability
 
@@ -127,6 +129,7 @@ const fontSize = theme.typography.fontSize.md;
 #### 2. **State Management**
 
 **No local state needed:**
+
 - Simple stateless components (like basic Button)
 - Use Pressable's `({ pressed })` render prop for press states
 
@@ -136,6 +139,7 @@ const fontSize = theme.typography.fontSize.md;
 ```
 
 **Local state for focus:**
+
 - Track focus state for custom focus styling
 - Useful when focus styling differs from Figma's default focus indicators
 
@@ -146,10 +150,11 @@ const [isFocused, setIsFocused] = useState(false);
 <TextInput
   onFocus={() => setIsFocused(true)}
   onBlur={() => setIsFocused(false)}
-/>
+/>;
 ```
 
 **Local state for hover + focus:**
+
 - Interactive cards or complex components
 - Web/desktop platforms with hover support
 
@@ -163,19 +168,25 @@ const [isFocused, setIsFocused] = useState(false);
   onHoverOut={() => setIsHovered(false)}
   onFocus={() => setIsFocused(true)}
   onBlur={() => setIsFocused(false)}
-/>
+/>;
 ```
 
 #### 3. **Style Type Annotations**
 
 **Separate types** for clarity:
+
 ```tsx
 // ✅ Good: When styles are used separately
-const containerStyle: ViewStyle = { /* ... */ };
-const textStyle: TextStyle = { /* ... */ };
+const containerStyle: ViewStyle = {
+  /* ... */
+};
+const textStyle: TextStyle = {
+  /* ... */
+};
 ```
 
 **Intersection types** when combined:
+
 ```tsx
 // ✅ Good: TextInput combines view and text styling
 const getInputStyle = (): ViewStyle & TextStyle => ({
@@ -188,6 +199,7 @@ const getInputStyle = (): ViewStyle & TextStyle => ({
 #### 4. **Always Use Theme Tokens**
 
 **Never use hardcoded values:**
+
 ```tsx
 // ❌ Bad
 paddingHorizontal: 32,
@@ -203,15 +215,17 @@ color: theme.colors.text.primary, // semantic black
 #### 5. **Accessibility Requirements**
 
 All interactive components must include:
+
 ```tsx
 <Pressable
-  accessibilityRole="button"      // Required: "button", "link", etc.
-  accessibilityLabel={label}       // Required: Descriptive label
+  accessibilityRole="button" // Required: "button", "link", etc.
+  accessibilityLabel={label} // Required: Descriptive label
   accessibilityState={{ disabled }} // When applicable
 />
 ```
 
 For inputs:
+
 ```tsx
 <TextInput
   accessibilityLabel="Email input"
@@ -230,6 +244,7 @@ For inputs:
    - Edit `/constants/tokens.ts` or `/constants/theme.ts`
 
 2. **Add new variants:**
+
    ```tsx
    // Add to props interface
    variant?: "primary" | "secondary" | "tertiary" | "custom";
@@ -254,10 +269,7 @@ For inputs:
 4. **Override styles for specific usage:**
    ```tsx
    // All components accept style prop
-   <Button
-     label="Custom"
-     style={{ marginTop: 20 }}
-   />
+   <Button label="Custom" style={{ marginTop: 20 }} />
    ```
 
 **To add new components:**
@@ -282,6 +294,7 @@ Figma Variables → tokens.ts → theme.ts → Components
 ```
 
 **When updating from Figma:**
+
 1. Extract variables from Figma using design system tools
 2. Update `/constants/tokens.ts` with new primitive values
 3. Update `/constants/theme.ts` to map semantic tokens

@@ -1,12 +1,12 @@
 import { ThemedView } from "@/components/themed-view";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Dialog } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
-import { Dialog } from "@/components/ui/dialog";
 import { useTheme } from "@/constants/ThemeContext";
 import { useState } from "react";
-import { ScrollView, StyleSheet, View, Keyboard } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function HomeScreen() {
   const { mode, toggleTheme } = useTheme();
@@ -22,8 +22,8 @@ export default function HomeScreen() {
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-        onScrollBeginDrag={Keyboard.dismiss}
+        // keyboardShouldPersistTaps="handled"
+        // onScrollBeginDrag={Keyboard.dismiss}
       >
         <ThemedView style={styles.header}>
           <Text variant="title-3xlarge">UI Showcase</Text>
@@ -164,7 +164,9 @@ export default function HomeScreen() {
               onPress={() => alert("Date card pressed")}
               accessibilityLabel="date"
             >
-              <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
+              <View
+                style={{ flexDirection: "row", gap: 16, alignItems: "center" }}
+              >
                 <Card.IconContainer>
                   <Card.Icon name="calendar" />
                 </Card.IconContainer>

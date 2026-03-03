@@ -39,27 +39,31 @@ export const Button: React.FC<ButtonProps> = ({
   const borderWidth = 2; // 2px from Figma
 
   // Build button styles from theme (without shadow - shadow is added conditionally)
-  const getButtonStyle = (pressed: boolean): ViewStyle => ({
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "flex-start", // Size to content, don't stretch to fill container
-    paddingHorizontal,
-    paddingVertical,
-    borderRadius,
-    backgroundColor: disabled
-      ? colorScheme.backgroundDisabled
-      : pressed
-        ? colorScheme.backgroundPressed
-        : colorScheme.background,
-    // Apply border for primary and secondary buttons
-    ...(variant !== "tertiary" && {
-      borderWidth,
-      borderColor: disabled ? colorScheme.borderDisabled : colorScheme.border,
-      // Only apply shadow when NOT pressed and NOT disabled (elevated state)
-      ...(!pressed && !disabled && theme.shadows.elevation4),
-    }),
-  });
+  const getButtonStyle = (pressed: boolean): ViewStyle => {
+    const variantShadow = theme.components.button.shadow[variant];
+
+    return {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      alignSelf: "flex-start", // Size to content, don't stretch to fill container
+      paddingHorizontal,
+      paddingVertical,
+      borderRadius,
+      backgroundColor: disabled
+        ? colorScheme.backgroundDisabled
+        : pressed
+          ? colorScheme.backgroundPressed
+          : colorScheme.background,
+      // Apply border for primary and secondary buttons
+      ...(variant !== "tertiary" && {
+        borderWidth,
+        borderColor: disabled ? colorScheme.borderDisabled : colorScheme.border,
+        // Only apply shadow when NOT pressed and NOT disabled (elevated state)
+        ...(!pressed && !disabled && variantShadow ? variantShadow : {}),
+      }),
+    };
+  };
 
   const textStyleObj: TextStyle = {
     fontSize,

@@ -96,7 +96,11 @@ export const lightTheme = {
       },
       borderWidth: 2,  // 2px solid border from Figma
       borderRadius: borderRadius.normal,  // 8px from Figma
-      shadow: shadows.elevation4,  // Hard shadow from Figma
+      shadow: {
+        primary: shadows.elevation4,  // Hard shadow from Figma
+        secondary: shadows.elevation4,  // Hard shadow from Figma
+        tertiary: undefined,  // No shadow for tertiary
+      },
       fontSize: {
         compact: typography.fontSize.sm,
         small: typography.fontSize.base,
@@ -204,6 +208,17 @@ export const darkTheme: Theme = {
       },
     },
   },
+  components: {
+    ...lightTheme.components,
+    button: {
+      ...lightTheme.components.button,
+      shadow: {
+        primary: shadows.elevation4,  // Keep shadow for primary
+        secondary: undefined,  // Remove shadow for secondary in dark mode
+        tertiary: undefined,  // No shadow for tertiary
+      },
+    },
+  },
 };
 
 // Define flexible Theme type that allows different color values in light/dark modes
@@ -239,7 +254,27 @@ export type Theme = {
   borderRadius: typeof borderRadius;
   shadows: typeof shadows;
   animation: typeof animation;
-  components: typeof lightTheme.components;
+  components: {
+    button: {
+      minHeight: typeof lightTheme.components.button.minHeight;
+      paddingHorizontal: typeof lightTheme.components.button.paddingHorizontal;
+      paddingVertical: typeof lightTheme.components.button.paddingVertical;
+      borderWidth: number;
+      borderRadius: number;
+      shadow: {
+        primary: typeof shadows.elevation4 | undefined;
+        secondary: typeof shadows.elevation4 | undefined;
+        tertiary: typeof shadows.elevation4 | undefined;
+      };
+      fontSize: typeof lightTheme.components.button.fontSize;
+      fontWeight: typeof lightTheme.components.button.fontWeight;
+      lineHeight: typeof lightTheme.components.button.lineHeight;
+      iconSize: typeof lightTheme.components.button.iconSize;
+      iconSpacing: number;
+    };
+    input: typeof lightTheme.components.input;
+    card: typeof lightTheme.components.card;
+  };
 };
 
 export type ThemeColors = Theme['colors'];
