@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { useTheme } from "@/constants/ThemeContext";
 import { useState } from "react";
-import { ScrollView, StyleSheet, View, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { ScrollView, StyleSheet, View, Keyboard } from "react-native";
 
 export default function HomeScreen() {
   const { mode, toggleTheme } = useTheme();
@@ -19,6 +19,8 @@ export default function HomeScreen() {
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        onScrollBeginDrag={Keyboard.dismiss}
       >
         <ThemedView style={styles.header}>
           <Text variant="title-3xlarge">UI Showcase</Text>

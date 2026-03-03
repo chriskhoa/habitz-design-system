@@ -91,7 +91,7 @@ export const Input: React.FC<InputProps> = ({
 
   const containerStyle: ViewStyle = {
     position: "relative",
-    width: 342, // Fixed width from Figma
+    width: "100%", // Fixed width from Figma
   };
 
   return (
