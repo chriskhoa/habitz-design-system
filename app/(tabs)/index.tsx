@@ -5,13 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { useTheme } from "@/constants/ThemeContext";
 import { useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View, Keyboard, TouchableWithoutFeedback } from "react-native";
 
 export default function HomeScreen() {
   const { mode, toggleTheme } = useTheme();
   const [searchValue, setSearchValue] = useState("");
   const [textValue, setTextValue] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
+  const [customCardValue, setCustomCardValue] = useState("");
 
   return (
     <ThemedView style={styles.container}>
@@ -138,29 +139,67 @@ export default function HomeScreen() {
 
           <ThemedView style={styles.row}>
             <ActionCard
-              icon="clock-o"
-              title="time"
-              description="At a specific time every day, week, or month."
               onPress={() => alert("Time card pressed")}
-            />
+              accessibilityLabel="time"
+            >
+              <ActionCard.IconContainer>
+                <ActionCard.Icon name="clock-o" />
+              </ActionCard.IconContainer>
+              <ActionCard.Content>
+                <ActionCard.Title>time</ActionCard.Title>
+                <ActionCard.Description>
+                  At a specific time every day, week, or month.
+                </ActionCard.Description>
+              </ActionCard.Content>
+            </ActionCard>
           </ThemedView>
 
           <ThemedView style={styles.row}>
             <ActionCard
-              icon="calendar"
-              title="date"
-              description="On a specific date or recurring date."
               onPress={() => alert("Date card pressed")}
-            />
+              accessibilityLabel="date"
+            >
+              <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
+                <ActionCard.IconContainer>
+                  <ActionCard.Icon name="calendar" />
+                </ActionCard.IconContainer>
+                <ActionCard.Content>
+                  <ActionCard.Title>date</ActionCard.Title>
+                  <ActionCard.Description>
+                    On a specific date or recurring date.
+                  </ActionCard.Description>
+                </ActionCard.Content>
+              </View>
+            </ActionCard>
           </ThemedView>
 
           <ThemedView style={styles.row}>
-            <ActionCard
-              icon="check-circle"
-              title="completion"
-              description="When you complete another habit."
-              onPress={() => alert("Completion card pressed")}
-            />
+            <ActionCard accessibilityLabel="Quick action">
+              <View style={{ gap: 12 }}>
+                <Text variant="title-medium">Quick Action</Text>
+                <Text variant="body-base">
+                  Non-pressable card with interactive components
+                </Text>
+                <Input
+                  shape="single-line"
+                  placeholder="Type something..."
+                  value={customCardValue}
+                  onChangeText={setCustomCardValue}
+                />
+                <Button
+                  label="Submit"
+                  variant="primary"
+                  onPress={() => {
+                    if (customCardValue.trim()) {
+                      alert(`Button clicked! Value: ${customCardValue}`);
+                      setCustomCardValue("");
+                    } else {
+                      alert("Please enter a value first");
+                    }
+                  }}
+                />
+              </View>
+            </ActionCard>
           </ThemedView>
         </ThemedView>
 
