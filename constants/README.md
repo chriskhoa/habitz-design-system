@@ -63,7 +63,16 @@ Exports two complete themes:
   shadows: { ... },
   animation: { ... },
   components: {
-    button: { minHeight, padding, borderRadius, fontSize, ... },
+    button: {
+      minHeight, paddingHorizontal, paddingVertical,
+      borderWidth, borderRadius, fontSize, fontWeight, lineHeight,
+      shadow: {
+        primary: shadows.elevation4,    // Can be undefined
+        secondary: shadows.elevation4,  // Can be undefined
+        tertiary: undefined             // No shadow
+      },
+      iconSize, iconSpacing
+    },
     input: { ... },
     card: { ... }
   }
@@ -130,6 +139,219 @@ When Figma design variables are updated:
 4. **Update theme.ts** if semantic mappings need adjustment
 5. **Components automatically inherit** the new design system
 
+## Customizing Themes and Component Styles
+
+### Changing Colors, Spacing, or Typography
+
+**1. Modify Primitive Tokens** (Recommended for design system changes)
+
+Edit `tokens.ts` to change fundamental design values:
+
+```ts
+// tokens.ts
+export const colors = {
+  primary: {
+    base: '#ff0000',    // Change primary color
+    hover: '#cc0000',
+    // ...
+  },
+};
+
+export const spacing = {
+  4: 16,  // Change base spacing unit
+  // ...
+};
+```
+
+**2. Override Semantic Theme Values** (For theme-specific adjustments)
+
+Edit `theme.ts` to change how tokens are applied semantically:
+
+```ts
+// theme.ts - lightTheme
+export const lightTheme = {
+  colors: {
+    background: {
+      primary: '#FFFFFF',      // Override background color
+      secondary: '#F0F0F0',    // Custom color not from tokens
+    },
+    button: {
+      primary: {
+        background: colors.primary.base,
+        backgroundHover: '#custom-hover-color',  // Custom override
+      },
+    },
+  },
+};
+```
+
+### Dark Mode Customization
+
+Override specific values in `darkTheme` while keeping `lightTheme` unchanged:
+
+```ts
+// theme.ts
+export const darkTheme: Theme = {
+  ...lightTheme,  // Inherit all light theme values
+  colors: {
+    ...lightTheme.colors,  // Inherit light colors
+    // Override only what's different in dark mode
+    background: {
+      primary: '#000000',
+      secondary: '#1a1a1a',
+      // ...
+    },
+  },
+  // Override component-specific values for dark mode
+  components: {
+    ...lightTheme.components,
+    button: {
+      ...lightTheme.components.button,
+      shadow: {
+        primary: shadows.elevation4,  // Keep shadow
+        secondary: undefined,          // Remove shadow in dark mode
+        tertiary: undefined,
+      },
+    },
+  },
+};
+```
+
+### Adding Variant-Specific Styles
+
+**Example: Different shadows for button variants**
+
+```ts
+// theme.ts - lightTheme
+components: {
+  button: {
+    shadow: {
+      primary: shadows.elevation4,    // Strong shadow
+      secondary: shadows.md,          // Subtle shadow
+      tertiary: undefined,            // No shadow
+    },
+  },
+}
+
+// darkTheme override
+components: {
+  ...lightTheme.components,
+  button: {
+    ...lightTheme.components.button,
+    shadow: {
+      primary: shadows.elevation4,
+      secondary: undefined,  // Remove for secondary in dark mode
+      tertiary: undefined,
+    },
+  },
+}
+```
+
+### Adding New Component Styles
+
+Add configuration for new components in `lightTheme.components`:
+
+```ts
+// theme.ts
+export const lightTheme = {
+  // ... existing config
+  components: {
+    button: { ... },
+    input: { ... },
+    card: { ... },
+    // Add new component
+    badge: {
+      paddingHorizontal: spacing[2],
+      paddingVertical: spacing[1],
+      borderRadius: borderRadius.full,
+      fontSize: typography.fontSize.sm,
+      colors: {
+        success: '#10b981',
+        error: '#ef4444',
+        warning: '#f59e0b',
+      },
+    },
+  },
+};
+
+// Update TypeScript type
+export type Theme = {
+  // ... existing types
+  components: {
+    button: { ... };
+    input: { ... };
+    card: { ... };
+    badge: {
+      paddingHorizontal: number;
+      paddingVertical: number;
+      borderRadius: number;
+      fontSize: number;
+      colors: {
+        success: string;
+        error: string;
+        warning: string;
+      };
+    };
+  };
+};
+```
+
+### Using Variant-Specific Styles in Components
+
+Components can access variant-specific configuration from the theme:
+
+```tsx
+// components/ui/button.tsx
+export const Button: React.FC<ButtonProps> = ({ variant = 'primary' }) => {
+  const { theme } = useTheme();
+
+  // Get variant-specific shadow (may be undefined)
+  const variantShadow = theme.components.button.shadow[variant];
+
+  const buttonStyle = {
+    // Apply shadow only if defined
+    ...(variantShadow && variantShadow),
+  };
+};
+```
+
+### Common Customization Scenarios
+
+**Scenario 1: Change button size across the app**
+```ts
+// theme.ts
+components: {
+  button: {
+    minHeight: { medium: 52 },  // Change from 48 to 52
+    paddingHorizontal: { medium: spacing[8] },  // More padding
+  },
+}
+```
+
+**Scenario 2: Remove all shadows in dark mode**
+```ts
+// theme.ts - darkTheme
+shadows: {
+  ...lightTheme.shadows,
+  elevation4: undefined,  // Or set all to transparent values
+}
+```
+
+**Scenario 3: Custom button color for dark mode only**
+```ts
+// theme.ts - darkTheme
+colors: {
+  ...lightTheme.colors,
+  button: {
+    ...lightTheme.colors.button,
+    primary: {
+      ...lightTheme.colors.button.primary,
+      background: '#8b5cf6',  // Custom purple
+    },
+  },
+}
+```
+
 ## Creating New Components
 
 Follow this pattern (see `/components/ui/button.tsx` for complete example):
@@ -161,6 +383,82 @@ export const MyComponent: React.FC<MyComponentProps> = ({
 };
 ```
 
+## Troubleshooting
+
+### TypeScript Errors After Theme Changes
+
+**Error: Type mismatch in darkTheme**
+
+If you add new properties to `lightTheme.components`, update the `Theme` type:
+
+```ts
+// theme.ts - Add your new component type
+export type Theme = {
+  // ... existing types
+  components: {
+    button: { ... };
+    input: { ... };
+    card: { ... };
+    // Add your new component type here
+    yourNewComponent: {
+      // Define the structure
+    };
+  };
+};
+```
+
+**Error: Property 'X' does not exist on type 'Y'**
+
+Make sure `darkTheme` properly spreads `lightTheme`:
+
+```ts
+export const darkTheme: Theme = {
+  ...lightTheme,  // Must inherit base structure
+  colors: {
+    ...lightTheme.colors,  // Must spread to inherit
+    // Your overrides
+  },
+  components: {
+    ...lightTheme.components,  // Must spread to inherit
+    // Your overrides
+  },
+};
+```
+
+**Error: Type 'undefined' is not assignable**
+
+When adding optional values (like shadows), update the type definition:
+
+```ts
+// Before (strict type)
+shadow: typeof shadows.elevation4;
+
+// After (allows undefined)
+shadow: typeof shadows.elevation4 | undefined;
+
+// Or for variant-specific
+shadow: {
+  primary: typeof shadows.elevation4 | undefined;
+  secondary: typeof shadows.elevation4 | undefined;
+  tertiary: typeof shadows.elevation4 | undefined;
+};
+```
+
+### Verifying Changes
+
+After making theme changes:
+
+```bash
+# Check for TypeScript errors
+npx tsc --noEmit
+
+# Run linter
+npm run lint
+
+# Start development server
+npm start
+```
+
 ## Best Practices
 
 ✅ **DO:**
@@ -169,12 +467,17 @@ export const MyComponent: React.FC<MyComponentProps> = ({
 - Support light/dark mode automatically
 - Define component-specific tokens in `theme.components`
 - Follow Figma design system as source of truth
+- Spread parent theme objects when creating overrides (`...lightTheme`)
+- Update TypeScript types when adding new theme properties
+- Allow `undefined` for optional style properties (shadows, borders, etc.)
 
 ❌ **DON'T:**
 - Hardcode colors, spacing, or typography values
 - Use inline styles for values that should be tokens
 - Bypass the theme system for "quick fixes"
 - Modify tokens.ts manually (sync from Figma instead)
+- Forget to spread `...lightTheme` in `darkTheme` overrides
+- Ignore TypeScript errors (fix type definitions instead)
 
 ## Type Safety
 
@@ -211,3 +514,70 @@ const color = theme.colors.text.primary;
 ```
 
 Legacy `<ThemedText>` and `<ThemedView>` components still work but are updated internally to use the new theme system.
+
+## Quick Reference
+
+### Common Tasks
+
+| Task | File to Edit | Example |
+|------|-------------|---------|
+| Change primary brand color | `tokens.ts` | `colors.primary.base = '#ff0000'` |
+| Update button size | `theme.ts` → `lightTheme.components.button` | `minHeight.medium = 52` |
+| Remove shadow in dark mode | `theme.ts` → `darkTheme.components` | `button.shadow.secondary = undefined` |
+| Add dark mode background | `theme.ts` → `darkTheme.colors` | `background.primary = '#000000'` |
+| Create new component config | `theme.ts` → `lightTheme.components` | Add new object + update `Theme` type |
+| Change spacing scale | `tokens.ts` | `spacing[4] = 16` |
+| Update font size | `tokens.ts` | `typography.fontSize.md = 18` |
+| Override button color | `theme.ts` → `lightTheme.colors.button` | `primary.background = '#custom'` |
+
+### File Decision Tree
+
+```
+Need to change styles?
+├─ Affects entire design system (all components)?
+│  └─ Edit tokens.ts (colors, spacing, typography)
+│
+├─ Affects one specific component?
+│  ├─ Same in light and dark mode?
+│  │  └─ Edit theme.ts → lightTheme.components
+│  │
+│  └─ Different in dark mode?
+│     └─ Edit theme.ts → darkTheme.components (with spread)
+│
+└─ Affects semantic meaning (button variants, backgrounds)?
+   ├─ Same in light and dark mode?
+   │  └─ Edit theme.ts → lightTheme.colors
+   │
+   └─ Different in dark mode?
+      └─ Edit theme.ts → darkTheme.colors (with spread)
+```
+
+### Theme Override Pattern
+
+```ts
+// Always use this pattern for darkTheme overrides
+export const darkTheme: Theme = {
+  ...lightTheme,                    // 1. Spread base theme
+  colors: {
+    ...lightTheme.colors,           // 2. Spread colors
+    button: {
+      ...lightTheme.colors.button,  // 3. Spread nested object
+      primary: {
+        ...lightTheme.colors.button.primary,  // 4. Spread deepest level
+        background: '#custom',      // 5. Override specific value
+      },
+    },
+  },
+  components: {
+    ...lightTheme.components,       // 2. Spread components
+    button: {
+      ...lightTheme.components.button,  // 3. Spread nested
+      shadow: {
+        primary: shadows.elevation4,
+        secondary: undefined,       // 5. Override specific value
+        tertiary: undefined,
+      },
+    },
+  },
+};
+```
